@@ -1489,7 +1489,6 @@ window.PRIORITY_GENES = ["Hif1a", "Epas1", "Arnt", "Fzd4", "Fzd6", "Idh2", "Mdh2
 
     Key features:
     - Includes annotation text, labels, and gene lists
-    - Adds volcano gene names to improve gene searches
 
     @dependencies
     - PROGRAMS: global dataset injected into the page
@@ -1503,18 +1502,11 @@ window.PRIORITY_GENES = ["Hif1a", "Epas1", "Arnt", "Fzd4", "Fzd6", "Idh2", "Mdh2
     function buildProgramSearchIndex() {
         const index = {};
         Object.entries(PROGRAMS).forEach(([id, program]) => {
-            const volcanoGenes = (program.volcano || [])
-                .map(item => item.g)
-                .join(' ');
             const text = [
                 program.name,
                 program.label,
                 program.summary,
-                program.annotation_text,
-                program.top_loading,
-                program.unique,
-                program.celltype,
-                volcanoGenes
+                program.annotation_text
             ]
                 .filter(Boolean)
                 .join(' ')

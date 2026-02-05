@@ -19,6 +19,7 @@ During you interaction with the user, if you find anything generalizable, especi
 - Some conda envs here do not include `bin/activate`; call the env's Python directly if activation script is missing. [Learning and Memory]
 - Pytest may not resolve `tools.*` imports unless `scripts/` is on `sys.path`; tests can append the repo `scripts/` directory. [Learning and Memory]
 - For report search, avoid embedding full annotation text in HTML data attributes; build the search index from `PROGRAMS` data to prevent quote truncation. [Learning and Memory]
+- Limit report search to program main text fields (e.g., `annotation_text`, summary/label) and exclude volcano plot gene lists when users want page text only. [Learning and Memory]
 - TODO: No new workflows or commands discovered in this run; update when new ones appear. [Learning and Memory]
 
 ## Environment Management

@@ -18,6 +18,7 @@ During you interaction with the user, if you find anything generalizable, especi
 - When editing files, use the `apply_patch` tool directly instead of invoking it via a shell command. [Learning and Memory]
 - Some conda envs here do not include `bin/activate`; call the env's Python directly if activation script is missing. [Learning and Memory]
 - Pytest may not resolve `tools.*` imports unless `scripts/` is on `sys.path`; tests can append the repo `scripts/` directory. [Learning and Memory]
+- For report search, avoid embedding full annotation text in HTML data attributes; build the search index from `PROGRAMS` data to prevent quote truncation. [Learning and Memory]
 - TODO: No new workflows or commands discovered in this run; update when new ones appear. [Learning and Memory]
 
 ## Environment Management

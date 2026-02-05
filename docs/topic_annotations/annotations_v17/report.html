@@ -1481,11 +1481,57 @@ window.PRIORITY_GENES = ["Hif1a", "Epas1", "Arnt", "Fzd4", "Fzd6", "Idh2", "Mdh2
         }, {responsive: true});
     }
 
+    /*
+    @description
+    This component builds and uses a search index for program metadata.
+    It is responsible for consolidating annotation text, summaries, and gene
+    lists so the sidebar filter matches all relevant content.
+
+    Key features:
+    - Includes annotation text, labels, and gene lists
+    - Adds volcano gene names to improve gene searches
+
+    @dependencies
+    - PROGRAMS: global dataset injected into the page
+
+    @examples
+    - Search for "Kdm7a" to surface Program 1
+    - Search for "angiogenesis" to find related programs
+    */
+    let PROGRAM_SEARCH_INDEX = null;
+
+    function buildProgramSearchIndex() {
+        const index = {};
+        Object.entries(PROGRAMS).forEach(([id, program]) => {
+            const volcanoGenes = (program.volcano || [])
+                .map(item => item.g)
+                .join(' ');
+            const text = [
+                program.name,
+                program.label,
+                program.summary,
+                program.annotation_text,
+                program.top_loading,
+                program.unique,
+                program.celltype,
+                volcanoGenes
+            ]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase();
+            index[id] = text;
+        });
+        return index;
+    }
+
     function filterPrograms() {
-        const q = document.getElementById('search').value.toLowerCase();
+        const q = document.getElementById('search').value.trim().toLowerCase();
+        if (!PROGRAM_SEARCH_INDEX) {
+            PROGRAM_SEARCH_INDEX = buildProgramSearchIndex();
+        }
         document.querySelectorAll('.toc a').forEach(a => {
-            const searchText = a.dataset.search || '';
-            a.style.display = searchText.includes(q) ? '' : 'none';
+            const searchText = PROGRAM_SEARCH_INDEX[a.dataset.id] || '';
+            a.style.display = q === '' || searchText.includes(q) ? '' : 'none';
         });
     }
 

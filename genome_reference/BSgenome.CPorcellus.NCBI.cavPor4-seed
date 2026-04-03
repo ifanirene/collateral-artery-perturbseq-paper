@@ -1,0 +1,18 @@
+Package: BSgenome.CPorcellus.NCBI.CavPor4.3
+Title: Full genome sequences for Cavia porcellus (version CavPor4)
+Description: Cavia porcellus PalLab524CR
+Version: 4.0
+organism: Cavia porcellus
+common_name: Guinea Pig
+provider: NCBI
+genome: GCF_034190915.1
+release_date: Feb. 2023
+source_url: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_034190915.1/
+organism_biocview: Cavia_porcellus
+BSgenomeObjname: CPorcellus
+SrcDataFiles: cavpor4.2bit converted from fna
+PkgExamples:
+circ_seqs: character(0)
+seqs_srcdir: ./src_dir
+seqfile_name: cavpor4.2bit
+seqnames: seqlevels(gtf)#chrominfo$RefSeqAccn

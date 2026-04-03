@@ -1,1 +1,54 @@
-/.DS_Store
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Large data files — deposit in GEO, not this repo
+*.h5ad
+*.h5seurat
+*.rds
+*.RData
+*.loom
+*.tsv.gz
+*.csv.gz
+*.bam
+*.bai
+*.fastq.gz
+*.fq.gz
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# Python bytecode and build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# R temporary / session files
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# conda environment exports (track environment.yml instead)
+conda-meta/
+
+# Editor artifacts
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Large output files
+*.pdf
+*.png
+*.svg
+output/
+figures/
+plots/
+Plots/

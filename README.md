@@ -73,40 +73,45 @@ genome_reference/                    # Guinea pig genome reference build scripts
 ## Analysis-to-Paper Map
 
 ```mermaid
+%%{init: {"theme":"base","themeVariables":{"background":"#ffffff","lineColor":"#7b8794","defaultLinkColor":"#7b8794","edgeLabelBackground":"#ffffff","clusterBkg":"#f8fbfb","clusterBorder":"#cbd5db","fontFamily":"Optima, Candara, Noto Sans, sans-serif","fontSize":"15px","textColor":"#20303a"},"flowchart":{"curve":"basis","htmlLabels":true}}}%%
 flowchart TD
-    classDef script fill:#1a5f8a,color:#fff,stroke:none
-    classDef claim fill:#eef6fb,color:#12344d,stroke:#8fb9d4,stroke-width:1.5px
-    classDef paper fill:#f7ede2,color:#6f4e37,stroke:#d7b28a,stroke-width:1.5px
+    classDef question fill:#8c2f39,color:#ffffff,stroke:#6e2029,stroke-width:2px
+    classDef script fill:#0f766e,color:#ffffff,stroke:#0b5c56,stroke-width:1.5px
+    classDef claim fill:#eef8f5,color:#16313a,stroke:#8ab7ae,stroke-width:1.5px
+    classDef bridge fill:#fff3e4,color:#6d4a2a,stroke:#d9a86c,stroke-width:1.5px
 
-    Q["Paper question\nWhy do guinea pigs form more collateral arteries?"]:::paper
+    Q(["Paper question\nWhy do guinea pigs form more collateral arteries?"]):::question
 
-    subgraph A["1. Comparative discovery in heart and brain"]
-        S01["01 Heart EC atlas"]:::script
-        S02["02 Brain EC atlas"]:::script
-        S03["03 CellChat receptor ranking"]:::script
-        S04["04 Xenium spatial validation"]:::script
-        S11["11 ATAC + Cicero preprocessing"]:::script
-        S12["12 Shared Hallmark pathway comparison"]:::script
+    subgraph A["1. Comparative discovery"]
+        direction LR
+        S01["01\nHeart EC atlas"]:::script
+        S02["02\nBrain EC atlas"]:::script
+        S03["03\nCellChat receptor ranking"]:::script
+        S04["04\nXenium spatial validation"]:::script
+        S11["11\nATAC + Cicero preprocessing"]:::script
+        S12["12\nShared Hallmark comparison"]:::script
     end
 
-    C1["Fig. 2\nGuinea pig ECs are shifted toward arterial identity,\nwhile hypoxia, metabolic, and proteostasis programs are reduced"]:::claim
-    L1["162-gene screen library\ncross-species DEGs + receptors + TF-linked candidates"]:::paper
+    C1["Fig. 2\nGuinea pig ECs shift toward arterial identity,\nwhile hypoxia, metabolic, and proteostasis programs fall"]:::claim
+    L1{{"162-gene screen library\nCross-species DEGs + receptors + TF-linked candidates"}}:::bridge
 
     subgraph B["2. In vivo causal screen"]
-        S05["05 Perturb-seq preprocessing"]:::script
-        S13["13 Endothelial-state UCell scoring"]:::script
-        S14["14 Artery-state SCEPTRE screen"]:::script
-        S15["15 Gene-level transcriptome SCEPTRE"]:::script
+        direction LR
+        S05["05\nPerturb-seq preprocessing"]:::script
+        S13["13\nEndothelial-state UCell scoring"]:::script
+        S14["14\nArtery-state SCEPTRE screen"]:::script
+        S15["15\nGene-level transcriptome SCEPTRE"]:::script
     end
 
     C2["Fig. 3\nThe screen identifies 45 artery repressors\nand captures transcriptome-wide perturbation effects"]:::claim
-    V1["Fig. 4\nSelected repressor pathways are taken forward for\nneonatal pial collateral validation"]:::paper
+    V1(["Fig. 4\nSelected repressor pathways move into\nneonatal pial collateral validation"]):::bridge
 
-    subgraph C["3. Mechanistic follow-up in the same Perturb-seq dataset"]
-        S0607["06 + 07 cNMF program discovery"]:::script
-        S08["08 Program-level SCEPTRE"]:::script
-        S09["09 Project programs onto hypoxia ECs"]:::script
-        S10["10 Project programs onto cross-species brain ECs"]:::script
+    subgraph C["3. Mechanistic follow-up"]
+        direction LR
+        S0607["06 + 07\ncNMF program discovery"]:::script
+        S08["08\nProgram-level SCEPTRE"]:::script
+        S09["09\nProject onto hypoxia ECs"]:::script
+        S10["10\nProject onto cross-species brain ECs"]:::script
     end
 
     C3["Fig. 5\nWNT- and HIF-linked tip-cell programs oppose arterial maturation,\nreappear under hypoxia, and are lower in guinea pig ECs"]:::claim
@@ -149,6 +154,12 @@ flowchart TD
     S08 --> C3
     S09 --> C3
     S10 --> C3
+
+    linkStyle default stroke:#7b8794,stroke-width:2px,opacity:0.85
+
+    style A fill:#f7fbfb,stroke:#c6d7d5,stroke-width:1.5px
+    style B fill:#fcfbf7,stroke:#ded2bb,stroke-width:1.5px
+    style C fill:#fbfaf8,stroke:#d9d0c6,stroke-width:1.5px
 ```
 
 *Dark boxes are released scripts in this repository. Light boxes summarize the manuscript claim each script block supports. This map focuses on released code, and unreleased analyses are noted above where relevant.*

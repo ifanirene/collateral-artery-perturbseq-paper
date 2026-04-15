@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collateral Artery Perturb-seq Explorer</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #f3f7f4;
+      --panel: rgba(255, 255, 255, 0.92);
+      --panel-strong: #ffffff;
+      --ink: #183135;
+      --ink-soft: #5e7579;
+      --line: rgba(15, 118, 110, 0.14);
+      --line-strong: rgba(15, 118, 110, 0.24);
+      --teal-600: #0f766e;
+      --teal-700: #0b5e58;
+      --coral: #d97a5b;
+      --shadow: 0 24px 56px rgba(17, 36, 39, 0.12);
+      --radius-xl: 30px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Avenir Next", Avenir, "Helvetica Neue", "Segoe UI Variable",
+        "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 32%),
+        radial-gradient(circle at 85% 10%, rgba(217, 122, 91, 0.12), transparent 24%),
+        linear-gradient(180deg, #f8fbf9 0%, var(--bg) 44%, #edf3ef 100%);
+    }
+
+    main {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 32px auto 48px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.85fr);
+      gap: 22px;
+      padding: 34px 34px 30px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      background:
+        linear-gradient(135deg, rgba(240, 248, 246, 0.96), rgba(255, 255, 255, 0.94)),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -72px;
+      bottom: -90px;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(15, 118, 110, 0.16), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      margin: 0 0 16px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.09);
+      color: var(--teal-700);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.25rem, 5vw, 3.9rem);
+      line-height: 0.97;
+      letter-spacing: -0.05em;
+    }
+
+    .lede {
+      max-width: 58ch;
+      margin: 16px 0 0;
+      color: var(--ink-soft);
+      font-size: 1.04rem;
+      line-height: 1.7;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .meta-card {
+      padding: 16px 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .meta-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .meta-card span {
+      color: var(--ink-soft);
+      font-size: 0.93rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 250px;
+      padding: 24px;
+      border-radius: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(250, 252, 251, 0.94)),
+        var(--panel-strong);
+      box-shadow: var(--shadow);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--teal-600), var(--coral));
+      opacity: 0.9;
+    }
+
+    .card-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.08);
+      color: var(--teal-700);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: -0.03em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      font-size: 0.97rem;
+      flex: 1;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .card a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--teal-600), var(--teal-700));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 14px 30px rgba(15, 118, 110, 0.18);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .card a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 34px rgba(15, 118, 110, 0.22);
+    }
+
+    .note {
+      margin: 18px 4px 0;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        width: min(100vw - 20px, 1120px);
+        margin-top: 14px;
+      }
+
+      .hero,
+      .card {
+        border-radius: 22px;
+      }
+
+      .hero {
+        padding: 24px 20px 22px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Collateral artery perturb-seq</p>
+        <h1>Interactive manuscript resources</h1>
+        <p class="lede">
+          This site now opens with a simple hub instead of redirecting immediately.
+          From here you can jump into the existing gene-program annotation report or
+          the new all-endothelial-cells interactive SCEPTRE volcano explorer.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <strong>Current annotation report</strong>
+          <span>Preserved at the same path as before: <code>topic_annotations/annotations_v17/report.html</code>.</span>
+        </div>
+        <div class="meta-card">
+          <strong>New volcano explorer</strong>
+          <span>Interactive all-cells view with program numbers only, FDR 0.15 highlighting, and cross-navigation by click.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <span class="card-tag">Existing page</span>
+        <h2>Gene program annotations</h2>
+        <p>
+          Open the current topic-annotation report with the full program-by-program
+          narrative, volcano panels, enrichment figures, and embedded UMAP views.
+        </p>
+        <ul>
+          <li>Same URL path as the current published report</li>
+          <li>Root landing page no longer hides it behind an automatic redirect</li>
+        </ul>
+        <a href="topic_annotations/annotations_v17/report.html">Open annotation report</a>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">New page</span>
+        <h2>All-cells volcano explorer</h2>
+        <p>
+          Explore regulator-to-program and program-to-regulator SCEPTRE effects for
+          all endothelial cells in a cleaner single-panel interactive volcano view.
+        </p>
+        <ul>
+          <li>Uses Table S9 all-endothelial-cells data only</li>
+          <li>Top 10 significant hits labeled; everything else remains hoverable</li>
+        </ul>
+        <a href="volcano_plots/sceptre_interactive_volcano_all_endothelial_cells_fdr015.html">Open volcano explorer</a>
+      </article>
+    </section>
+
+    <p class="note">
+      If you share the site root, visitors will land here first. Existing deep links to
+      the annotation report can continue to use the original report URL directly.
+    </p>
+  </main>
+</body>
+</html>
